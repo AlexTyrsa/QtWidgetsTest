@@ -19,10 +19,14 @@ set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
+        datatypes.h
+        datatypes.cpp
         operatorsdata.h
         operatorsdata.cpp
         operatorsview.h
         operatorsview.cpp
+        dbdriver.h
+        dbdriver.cpp
 )
 
 set(PROJECT_RESOURCES_DIR Resources)

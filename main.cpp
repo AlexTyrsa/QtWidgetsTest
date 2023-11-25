@@ -16,6 +16,9 @@ int main(int argc, char *argv[])
     w->resize(800, 600);
     w->setCentralWidget(view);
 
+    OperatorsData* data = new OperatorsData(QApplication::applicationDirPath() + RESOURCES_PATH + DB_FILE_NAME);
+    view->setModel(data);
+
     w->show();
 
     return a.exec();
