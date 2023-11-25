@@ -19,6 +19,10 @@ set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
+        operatorsdata.h
+        operatorsdata.cpp
+        operatorsview.h
+        operatorsview.cpp
 )
 
 set(PROJECT_RESOURCES_DIR Resources)
