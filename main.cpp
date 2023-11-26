@@ -10,7 +10,6 @@
 
 int main(int argc, char *argv[])
 {
-
     QApplication a(argc, argv);
 
     qRegisterMetaType<QSharedPointer<operator_t>>("shared_operator_t");
@@ -34,6 +33,7 @@ int main(int argc, char *argv[])
     view->setModel(data);
 
     w->show();
+
 
     return a.exec();
 }
