@@ -53,3 +53,18 @@ void OperatorsViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
         }
     }
 }
+
+QWidget *OperatorsViewDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
+{
+    if(index.isValid())
+    {
+        QSharedPointer<operator_t> data = qvariant_cast<QSharedPointer<operator_t>>(index.data());
+
+        if(data)
+        {
+            emit editRequest(data->mcc, data->mnc);
+        }
+    }
+
+    return nullptr;
+}

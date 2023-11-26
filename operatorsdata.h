@@ -3,6 +3,7 @@
 #include <QAbstractItemModel>
 
 class DBDriver;
+class country_t;
 
 class OperatorsData : public QAbstractItemModel
 {
@@ -17,6 +18,15 @@ public:
     QModelIndex parent(const QModelIndex &index) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+
+    QSharedPointer<country_t> get_country_by_id(int id) const;
+
+    void changeOperatorName(int mcc, int mnc, const QString& name);
+    void createNewOperator(int mcc, int mnc, const QString& name);
+
+signals:
+    void requestRefresh();
+    void requestRebuild();
 
 private:
     DBDriver* m_db_driver;

@@ -97,6 +97,20 @@ void DBDriver::fill_operators(QSharedPointer<country_t> country) const
         country->operators = get_operators(country->mcc);
 }
 
+void DBDriver::changeOperatorName(int mcc, int mnc, const QString &name)
+{
+    QSqlQuery a_query;
+
+    a_query.exec("UPDATE operators SET name = \"" + name + "\" WHERE mcc = " + QString::number(mcc) + " AND mnc = " + QString::number(mnc));
+
+    drop_cache();
+}
+
+void DBDriver::createNewOperator(int mcc, int mnc, const QString &name)
+{
+
+}
+
 bool DBDriver::cache_is_empty() const
 {
     return m_cache.empty();
@@ -148,4 +162,10 @@ void DBDriver::cache_from_index(int index) const
     {
         fill_operators(in_country);
     });
+}
+
+void DBDriver::drop_cache()
+{
+    m_cache.clear();
+    m_cache_index = 0;
 }

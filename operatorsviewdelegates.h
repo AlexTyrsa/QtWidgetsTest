@@ -11,8 +11,11 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
+     QWidget* createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+
 signals:
     void requestButtonInPosition(const QRect& pos, int mcc, int mnc) const;
     void requestHideButton() const;
+    void editRequest(int mcc, int mnc) const;
 
 };

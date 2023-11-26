@@ -34,6 +34,7 @@ struct country_t
     int get_id() const;
     bool check_id(int id) const;
     QSharedPointer<operator_t> operator_by_id(int id) const;
+    QSharedPointer<operator_t> operator_by_mnc(int mnc) const;
 
     int     mcc;
     QString code;

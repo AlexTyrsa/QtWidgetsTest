@@ -1,6 +1,7 @@
 #include "operatorsview.h"
 
 #include "operatorsviewdelegates.h"
+#include "operatoreditdialog.h"
 
 #include <QPushButton>
 
@@ -21,7 +22,16 @@ OperatorsView::OperatorsView(QWidget *parent) : QTreeView(parent), m_last_mcc(0)
 
     connect(delegate, SIGNAL(requestButtonInPosition(QRect,int,int)), this, SLOT(OnRequestButtonInPosition(QRect,int,int)));
     connect(delegate, SIGNAL(requestHideButton()), this, SLOT(OnRequestHideButton()));
+    connect(delegate, SIGNAL(editRequest(int,int)), this, SLOT(OnEditRequest(int,int)));
     connect(actionButton, SIGNAL(clicked()), this, SLOT(OnActionButtonClick()));
+}
+
+void OperatorsView::setModel(QAbstractItemModel *model)
+{
+    connect(model, SIGNAL(requestRefresh()), this, SLOT(OnRequestRefresh()));
+    connect(model, SIGNAL(requestRebuild()), this, SLOT(OnRequestRebuild()));
+
+    QTreeView::setModel(model);
 }
 
 void OperatorsView::operatorActionPressed(int mcc, int mnc)
@@ -48,4 +58,24 @@ void OperatorsView::OnRequestHideButton()
 void OperatorsView::OnActionButtonClick()
 {
     operatorActionPressed(m_last_mcc, m_last_mnc);
+}
+
+void OperatorsView::OnEditRequest(int mcc, int mnc)
+{
+    OperatorEditDialog::startEdit(mcc, mnc, model());
+}
+
+void OperatorsView::OnCreateNewRequest()
+{
+    OperatorEditDialog::startCreate(model());
+}
+
+void OperatorsView::OnRequestRefresh()
+{
+    repaint();
+}
+
+void OperatorsView::OnRequestRebuild()
+{
+
 }

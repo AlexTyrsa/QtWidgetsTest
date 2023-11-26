@@ -11,6 +11,8 @@ class OperatorsView: public QTreeView
 public:
     OperatorsView(QWidget *parent = nullptr);
 
+    void setModel(QAbstractItemModel *model) override;
+
 private:
     QPushButton* actionButton;
 
@@ -21,6 +23,10 @@ private slots:
     void OnRequestButtonInPosition(const QRect& pos, int mcc, int mnc);
     void OnRequestHideButton();
     void OnActionButtonClick();
+    void OnEditRequest(int mcc, int mnc);
+    void OnCreateNewRequest();
+    void OnRequestRefresh();
+    void OnRequestRebuild();
 
 private:
     int m_last_mcc;

@@ -31,6 +31,8 @@ set(PROJECT_SOURCES
         operatorsviewdelegates.cpp
         iconsloader.h
         iconsloader.cpp
+        operatoreditdialog.h
+        operatoreditdialog.cpp
     )
 
 set(PROJECT_RESOURCES_DIR Resources)

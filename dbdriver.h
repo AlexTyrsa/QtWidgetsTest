@@ -21,11 +21,15 @@ public:
     QVector<QSharedPointer<operator_t>> get_operators(int mcc) const;
     void fill_operators(QSharedPointer<country_t> country) const;
 
+    void changeOperatorName(int mcc, int mnc, const QString& name);
+    void createNewOperator(int mcc, int mnc, const QString& name);
+
 private:
     bool cache_is_empty() const;
     bool is_cached(int index) const;
     QSharedPointer<country_t> get_from_cache(int index) const;
     void cache_from_index(int index) const;
+    void drop_cache();
 
 private:
     QSqlDatabase                               m_db;

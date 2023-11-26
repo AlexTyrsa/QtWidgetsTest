@@ -93,3 +93,14 @@ QSharedPointer<operator_t> country_t::operator_by_id(int id) const
 
     return QSharedPointer<operator_t>();
 }
+
+QSharedPointer<operator_t> country_t::operator_by_mnc(int mnc) const
+{
+    for(QVector<QSharedPointer<operator_t>>::const_iterator i = operators.cbegin(); i != operators.cend(); ++i)
+    {
+        if((*i)->mnc == mnc)
+            return *i;
+    }
+
+    return QSharedPointer<operator_t>();
+}
