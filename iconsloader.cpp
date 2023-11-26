@@ -55,9 +55,20 @@ QString IconsLoader::getIconsOperatorsPath() const
     return QApplication::applicationDirPath() + RESOURCES_PATH + ICONS_OPERATORS_PATH;
 }
 
+QPixmap IconsLoader::getDefaultCountryIcon() const
+{
+    return mDefaultCountryIcon;
+}
+
+QPixmap IconsLoader::getDefaultOperatorIcon() const
+{
+    return mDefaultOperatorIcon;
+}
+
 IconsLoader::IconsLoader()
 {
-
+    mDefaultCountryIcon = QPixmap(getIconsCountriesPath() + "NONE.png");
+    mDefaultOperatorIcon = QPixmap(getIconsOperatorsPath() + "NONE.png");
 }
 
 bool IconsLoader::is_cached(const QString &id) const

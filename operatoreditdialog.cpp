@@ -45,6 +45,12 @@ OperatorEditDialog::OperatorEditDialog(QWidget *parent, Qt::WindowFlags f) : QDi
     dialog->addWidget(btn_box);
 
     this->setLayout(dialog);
+
+    operatorIcon->setPixmap(IconsLoader::get()->getDefaultOperatorIcon());
+    countryIcon->setPixmap(IconsLoader::get()->getDefaultCountryIcon());
+
+    connect(mccEdit, SIGNAL(textChanged(QString)), this, SLOT(onMCCChanged(QString)));
+    connect(mncEdit, SIGNAL(textChanged(QString)), this, SLOT(onMNCChanged(QString)));
 }
 
 void OperatorEditDialog::setData(OperatorsData *in_data)
@@ -127,4 +133,36 @@ void OperatorEditDialog::startCreate(QAbstractItemModel* model)
     }
 
     delete dialog;
+}
+
+void OperatorEditDialog::onMCCChanged(const QString &text)
+{
+    if(m_data)
+    {
+        int mcc = getMCC();
+        int mnc = getMNC();
+
+        QSharedPointer<country_t> country = m_data->get_country_by_id(mcc);
+
+        if(country)
+        {
+            countryIcon->setPixmap(IconsLoader::get()->iconFromCountryCode(country->code));
+
+            QSharedPointer<operator_t> op = country->operator_by_mnc(mnc);
+
+            if(op)
+                operatorIcon->setPixmap(IconsLoader::get()->iconFromMCCMNC(mcc, mnc));
+            else
+                operatorIcon->setPixmap(IconsLoader::get()->getDefaultOperatorIcon());
+        }else
+            countryIcon->setPixmap(IconsLoader::get()->getDefaultCountryIcon());
+    }
+}
+
+void OperatorEditDialog::onMNCChanged(const QString &text)
+{
+    int mcc = getMCC();
+    int mnc = getMNC();
+
+    operatorIcon->setPixmap(IconsLoader::get()->iconFromMCCMNC(mcc, mnc));
 }

@@ -15,6 +15,7 @@ public:
 
 private:
     QPushButton* actionButton;
+    QPushButton* createButton;
 
 public slots:
     virtual void operatorActionPressed(int mcc, int mnc);       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

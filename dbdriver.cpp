@@ -99,16 +99,26 @@ void DBDriver::fill_operators(QSharedPointer<country_t> country) const
 
 void DBDriver::changeOperatorName(int mcc, int mnc, const QString &name)
 {
-    QSqlQuery a_query;
+    if(!name.isEmpty())
+    {
+        QSqlQuery a_query;
 
-    a_query.exec("UPDATE operators SET name = \"" + name + "\" WHERE mcc = " + QString::number(mcc) + " AND mnc = " + QString::number(mnc));
+        a_query.exec("UPDATE operators SET name = \"" + name + "\" WHERE mcc = " + QString::number(mcc) + " AND mnc = " + QString::number(mnc));
 
-    drop_cache();
+        drop_cache();
+    }
 }
 
 void DBDriver::createNewOperator(int mcc, int mnc, const QString &name)
 {
+    if(!name.isEmpty())
+    {
+        QSqlQuery a_query;
 
+        a_query.exec("INSERT INTO operators (mcc, mnc, name) VALUES ("  + QString::number(mcc) + "," + QString::number(mnc) + ",\"" + name + "\")");
+
+        drop_cache();
+    }
 }
 
 bool DBDriver::cache_is_empty() const

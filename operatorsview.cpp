@@ -4,6 +4,7 @@
 #include "operatoreditdialog.h"
 
 #include <QPushButton>
+#include <QGridLayout>
 
 OperatorsView::OperatorsView(QWidget *parent) : QTreeView(parent), m_last_mcc(0), m_last_mnc(0)
 {
@@ -20,10 +21,21 @@ OperatorsView::OperatorsView(QWidget *parent) : QTreeView(parent), m_last_mcc(0)
     actionButton->setText("+");
     actionButton->setStyleSheet("QPushButton {border: none;}");
 
+    createButton = new QPushButton(this);
+    createButton->setText("+");
+    createButton->resize(30, 40);
+
+    QGridLayout* layout = new QGridLayout(this);
+
+    layout->addWidget(createButton, 10, 10, Qt::AlignRight | Qt::AlignBottom);
+
+    setLayout(layout);
+
     connect(delegate, SIGNAL(requestButtonInPosition(QRect,int,int)), this, SLOT(OnRequestButtonInPosition(QRect,int,int)));
     connect(delegate, SIGNAL(requestHideButton()), this, SLOT(OnRequestHideButton()));
     connect(delegate, SIGNAL(editRequest(int,int)), this, SLOT(OnEditRequest(int,int)));
     connect(actionButton, SIGNAL(clicked()), this, SLOT(OnActionButtonClick()));
+    connect(createButton, SIGNAL(clicked()), this, SLOT(OnCreateNewRequest()));
 }
 
 void OperatorsView::setModel(QAbstractItemModel *model)
@@ -77,5 +89,5 @@ void OperatorsView::OnRequestRefresh()
 
 void OperatorsView::OnRequestRebuild()
 {
-
+    reset();
 }

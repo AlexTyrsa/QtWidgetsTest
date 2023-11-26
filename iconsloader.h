@@ -15,6 +15,9 @@ public:
     QString getIconsCountriesPath() const;
     QString getIconsOperatorsPath() const;
 
+    QPixmap getDefaultCountryIcon() const;
+    QPixmap getDefaultOperatorIcon() const;
+
 private:
     IconsLoader();
 

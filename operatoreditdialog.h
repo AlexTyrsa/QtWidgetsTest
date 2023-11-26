@@ -25,6 +25,10 @@ public:
     static void startEdit(int mcc, int mnc, QAbstractItemModel* model);
     static void startCreate(QAbstractItemModel* model);
 
+private slots:
+    void onMCCChanged(const QString &text);
+    void onMNCChanged(const QString &text);
+
 private:
     OperatorsData* m_data;
 
