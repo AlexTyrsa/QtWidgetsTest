@@ -9,12 +9,14 @@ OperatorsData::OperatorsData(const QString &pathToDB, QObject *parent) : QAbstra
 
 QVariant OperatorsData::data(const QModelIndex &index, int role) const
 {
+    QVariant result;
+
     if (index.isValid() && role == Qt::DisplayRole)
     {
         QSharedPointer<country_t> country = m_db_driver->get_country_by_id(index.internalId());
 
         if(country)
-            return QVariant(country->to_string());
+            result.setValue(country);
         else
         {
             int mcc = operator_t::mcc_from_id(index.internalId());
@@ -25,12 +27,12 @@ QVariant OperatorsData::data(const QModelIndex &index, int role) const
                 QSharedPointer<operator_t> op = country->operator_by_id(index.internalId());
 
                 if(op)
-                    return QVariant(op->to_string());
+                    result.setValue(op);
             }
         }
     }
 
-    return QVariant();
+    return result;
 }
 
 Qt::ItemFlags OperatorsData::flags(const QModelIndex &index) const
