@@ -11,4 +11,8 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 
+signals:
+    void requestButtonInPosition(const QRect& pos, int mcc, int mnc) const;
+    void requestHideButton() const;
+
 };
