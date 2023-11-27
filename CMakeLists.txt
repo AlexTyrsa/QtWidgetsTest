@@ -94,6 +94,20 @@ if(WIN32)
                     ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_DB_FILE_NAME}
         )
 
+    foreach(FILE ${PROJECT_ICONS})
+        file(RELATIVE_PATH NEW_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_RESOURCES_DIR}" ${FILE})
+        get_filename_component(NEW_FILE_PATH ${NEW_FILE} DIRECTORY)
+        get_filename_component(FILE_NAME ${NEW_FILE} NAME)
+
+        add_custom_command(
+                TARGET QtWidgetsTest POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy
+                        "${FILE}"
+                        "${CMAKE_CURRENT_BINARY_DIR}/${NEW_FILE_PATH}/${FILE_NAME}"
+            )
+
+    endforeach()
+
     add_compile_definitions(RESOURCES_PATH="/")
 endif()
 
